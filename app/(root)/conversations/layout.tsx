@@ -1,7 +1,14 @@
+import ItemList from "@/components/shared/item-list/ItemList";
+
 type Props = {
   children: React.ReactNode;
 };
-const ConversationsLayout = ({ children }: Props) => {
-  return <div>{children}</div>;
+const layout = ({ children }: Props) => {
+  return (
+    <>
+      <ItemList title="Conversations">Conversations page</ItemList>
+      {children}
+    </>
+  );
 };
-export default ConversationsLayout;
+export default layout;
