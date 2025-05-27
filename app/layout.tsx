@@ -5,6 +5,7 @@ import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ui/theme/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,7 +44,10 @@ export default function RootLayout({
         >
           <ClerkProvider dynamic>
             <ConvexClientProvider>
-              <TooltipProvider>{children}</TooltipProvider>
+              <TooltipProvider>
+                <Toaster richColors />
+                {children}
+              </TooltipProvider>
             </ConvexClientProvider>
           </ClerkProvider>
         </ThemeProvider>
