@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
@@ -28,13 +29,18 @@ const MobileNav = () => {
             <li key={id}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={path.href}>
+                  <Link href={path.href} className="relative inline-flex">
                     <Button
                       variant={path.active ? "default" : "ghost"}
                       size="icon"
                     >
                       {path.icon}
                     </Button>
+                    {path.count ? (
+                      <Badge className="absolute -top-2 -right-2 h-5 min-w-5 p-0 flex items-center justify-center text-xs rounded-full">
+                        {path.count}
+                      </Badge>
+                    ) : null}
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
