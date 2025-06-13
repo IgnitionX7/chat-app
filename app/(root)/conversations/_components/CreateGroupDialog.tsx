@@ -43,8 +43,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-type Props = {};
-
 const createGroupFormSchema = z.object({
   name: z.string().min(1, { message: "This field can't be empty" }),
   members: z
@@ -53,7 +51,7 @@ const createGroupFormSchema = z.object({
     .min(1, { message: "You must select atleast 1 friend" }),
 });
 
-const CreateGroupDialog = (props: Props) => {
+const CreateGroupDialog = () => {
   const friends = useQuery(api.friends.get);
 
   const { mutate: createGroup, pending } = useMutationState(
