@@ -116,6 +116,10 @@ export const deleteGroup = mutation({
     const conversation = await ctx.db.get(args.conversationId);
     if (!conversation) throw new ConvexError("Conversation not found");
 
+    if (!conversation.isGroup) {
+      throw new ConvexError("This is not a group conversation");
+    }
+
     const memberships = await ctx.db
       .query("conversationMembers")
       .withIndex("by_conversationId", (q) =>
@@ -123,9 +127,18 @@ export const deleteGroup = mutation({
       )
       .collect();
 
-    // checking membership length as we don't want to remove members from a group, only convos b/w 2 people
-    if (!memberships || memberships.length <= 1)
+    // Check if there are no memberships at all
+    if (!memberships || memberships.length === 0) {
       throw new ConvexError("This conversation does not have any members");
+    }
+
+    // Verify the current user is a member
+    const userMembership = memberships.find(
+      (m) => m.memberId === currentUser._id,
+    );
+    if (!userMembership) {
+      throw new ConvexError("You are not a member of this group");
+    }
 
     const messages = await ctx.db
       .query("messages")
@@ -134,20 +147,26 @@ export const deleteGroup = mutation({
       )
       .collect();
 
+    await Promise.all(messages.map((message) => ctx.db.delete(message._id)));
+    await Promise.all(
+      memberships.map((membership) => ctx.db.delete(membership._id)),
+    );
     await ctx.db.delete(args.conversationId);
 
-    await Promise.all(
-      memberships.map(async (membership) => {
-        await ctx.db.delete(membership._id);
-      }),
-    );
-    console.log("Delete group was called");
-    // DELETING ALL THE MESSAGES AS WELL IF NO LONGER FRIENDS
-    await Promise.all(
-      messages.map(async (message) => {
-        await ctx.db.delete(message._id);
-      }),
-    );
+    // await ctx.db.delete(args.conversationId);
+
+    // await Promise.all(
+    //   memberships.map(async (membership) => {
+    //     await ctx.db.delete(membership._id);
+    //   }),
+    // );
+    // console.log("Delete group was called");
+    // // DELETING ALL THE MESSAGES AS WELL IF NO LONGER FRIENDS
+    // await Promise.all(
+    //   messages.map(async (message) => {
+    //     await ctx.db.delete(message._id);
+    //   }),
+    // );
   },
 });
 
