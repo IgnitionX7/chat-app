@@ -12,9 +12,9 @@ import ChatInput from "./_components/input/ChatInput";
 import { useState } from "react";
 import RemoveFriendDialog from "./_components/dialogs/RemoveFriendDialog";
 import DeleteGroupDialog from "./_components/dialogs/DeleteGroupDialog";
+import LeaveGroupDialog from "./_components/dialogs/LeaveGroupDialog";
 
-type Props = {};
-const ConversationPage = ({}: Props) => {
+const ConversationPage = () => {
   const [removeFriendDialogOpen, setRemoveFriendDialogOpen] = useState(false);
   const [deleteGroupDialogOpen, setDeleteGroupDialogOpen] = useState(false);
   const [leaveGroupDialogOpen, setLeaveGroupDialogOpen] = useState(false);
@@ -40,6 +40,11 @@ const ConversationPage = ({}: Props) => {
             conversationId={conversationId}
             open={removeFriendDialogOpen}
             setOpen={setRemoveFriendDialogOpen}
+          />
+          <LeaveGroupDialog
+            conversationId={conversationId}
+            open={leaveGroupDialogOpen}
+            setOpen={setLeaveGroupDialogOpen}
           />
           <DeleteGroupDialog
             conversationId={conversationId}
