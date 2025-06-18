@@ -60,6 +60,7 @@ export const get = query({
           if (!member) throw new ConvexError("Member could not be found");
 
           return {
+            _id: member._id,
             username: member.username,
           };
         }),

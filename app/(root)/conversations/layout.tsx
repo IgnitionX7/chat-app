@@ -29,6 +29,7 @@ const ConversationsLayout = ({ children }: Props) => {
                   name={conversations.conversation.name || ""}
                   lastMessageContent={conversations.lastMessage?.content}
                   lastMessageSender={conversations.lastMessage?.sender}
+                  unseenCount={conversations.unseenCount}
                 />
               ) : (
                 <DMConversationItem
@@ -38,6 +39,7 @@ const ConversationsLayout = ({ children }: Props) => {
                   imageUrl={conversations.otherMember?.imageUrl || ""}
                   lastMessageContent={conversations.lastMessage?.content}
                   lastMessageSender={conversations.lastMessage?.sender}
+                  unseenCount={conversations.unseenCount}
                 />
               );
             })
