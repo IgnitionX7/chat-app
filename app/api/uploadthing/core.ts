@@ -13,8 +13,8 @@ const handleAuth = async () => {
 
 export const ourFileRouter = {
   image: f({
-    image: { maxFileCount: 6 },
-    video: { maxFileCount: 3 },
+    image: { maxFileSize: "4MB", maxFileCount: 6 },
+    video: { maxFileSize: "512MB", maxFileCount: 3 },
   })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
