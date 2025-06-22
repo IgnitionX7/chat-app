@@ -1,6 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import React from "react";
 import { format } from "date-fns";
+import ImagePreview from "./ImagePreview";
+import FilePreview from "./FilePreview";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   fromCurrentUser: boolean;
@@ -12,6 +16,7 @@ type Props = {
   seen?: React.ReactNode;
   type: string;
 };
+
 const Message = ({
   fromCurrentUser,
   senderImage,
@@ -22,11 +27,16 @@ const Message = ({
   seen,
   type,
 }: Props) => {
-  const formateTime = (timestamp: number) => {
-    return format(timestamp, "h:mm a");
+  const formatTime = (timestamp: number) => {
+    return format(timestamp, "HH:mm");
   };
+
   return (
-    <div className={cn("flex items-end", { "justify-end": fromCurrentUser })}>
+    <div
+      className={cn("flex items-end", {
+        "justify-end": fromCurrentUser,
+      })}
+    >
       <div
         className={cn("flex flex-col w-full mx-2", {
           "order-1 items-end": fromCurrentUser,
@@ -46,17 +56,23 @@ const Message = ({
               {content}
             </p>
           ) : null}
+          {type === "file" ? <FilePreview url={content[0]} /> : null}
+          {type === "image" ? <ImagePreview urls={content} /> : null}
+          {type === "call" ? (
+            <Badge variant="secondary">Joined Call</Badge>
+          ) : null}
           <p
-            className={cn("text-xs flex w-full my-1", {
+            className={cn(`text-xs flex w-full my-1`, {
               "text-primary-foreground justify-end": fromCurrentUser,
-              "text-secondary-foreground justify-center": !fromCurrentUser,
+              "text-secondary-foreground justify-start": !fromCurrentUser,
             })}
           >
-            {formateTime(createdAt)}
+            {formatTime(createdAt)}
           </p>
         </div>
         {seen}
       </div>
+
       <Avatar
         className={cn("relative w-8 h-8", {
           "order-2": fromCurrentUser,
@@ -70,4 +86,5 @@ const Message = ({
     </div>
   );
 };
+
 export default Message;
