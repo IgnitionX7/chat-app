@@ -28,7 +28,7 @@ const Message = ({
   type,
 }: Props) => {
   const formatTime = (timestamp: number) => {
-    return format(timestamp, "HH:mm");
+    return format(timestamp, "hh:mm a");
   };
 
   return (

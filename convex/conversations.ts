@@ -119,6 +119,8 @@ const getMessageContent = (type: string, content: string) => {
       return "[Image]";
     case "file":
       return "[File]";
+    case "call":
+      return "[call]";
     default:
       return "[Non-text]";
   }
