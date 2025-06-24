@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { CircleArrowLeft, Settings } from "lucide-react";
+import { CircleArrowLeft, Phone, Settings, Video } from "lucide-react";
 import Link from "next/link";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   imageUrl?: string;
@@ -19,8 +20,9 @@ type Props = {
     destructive: boolean;
     onClick: () => void;
   }[];
+  setCallType: Dispatch<SetStateAction<"audio" | "video" | null>>;
 };
-const Header = ({ imageUrl, name, options }: Props) => {
+const Header = ({ imageUrl, name, options, setCallType }: Props) => {
   return (
     // <Card className="w-full flex rounded-lg items-center p-2">
     //   <div className="flex items-center gap-2">
@@ -76,8 +78,23 @@ const Header = ({ imageUrl, name, options }: Props) => {
         </div>
 
         {/* Right Section: Push to far right */}
-        {options ? (
-          <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setCallType("audio")}
+          >
+            <Phone />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setCallType("video")}
+          >
+            <Video />
+          </Button>
+
+          {options ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button size="icon" variant="secondary">
@@ -98,8 +115,8 @@ const Header = ({ imageUrl, name, options }: Props) => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </Card>
   );

@@ -90,6 +90,7 @@ const ConversationPage = () => {
                     },
                   ]
             }
+            setCallType={setCallType}
           />
           <Body
             members={
@@ -101,6 +102,8 @@ const ConversationPage = () => {
                   ? [conversation.otherMember]
                   : []
             }
+            callType={callType}
+            setCallType={setCallType}
           />
           <ChatInput />
         </ConversationContainer>

@@ -27,7 +27,7 @@ const ImagePreview = ({ urls }: Props) => {
     const detectFileTypes = async () => {
       const results: FileWithType[] = await Promise.all(
         urls.map(async (url) => {
-          const videoFilePattern = /\.(mp4|webm|ogg|mov)$/i;
+          const videoFilePattern = /\.(mp4|webm|ogg|mov|mkv)$/i;
           let isVideo = videoFilePattern.test(url);
 
           if (!isVideo) {
@@ -74,7 +74,7 @@ const ImagePreview = ({ urls }: Props) => {
               {isVideo ? (
                 <div className="aspect-video w-full h-full">
                   <video
-                    className="object-cover w-full h-full rounded-md"
+                    className="object-cover w-48 rounded-md"
                     muted
                     playsInline
                   >
