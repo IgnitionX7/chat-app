@@ -21,9 +21,7 @@ const CallRoom = ({ video, audio, handleDisconnect }: Props) => {
 
   const { conversationId } = useConversation();
 
-  const { mutate: createMessage, pending } = useMutationState(
-    api.message.create,
-  );
+  const { mutate: createMessage } = useMutationState(api.message.create);
 
   useEffect(() => {
     if (!user?.fullName) return;
@@ -37,7 +35,9 @@ const CallRoom = ({ video, audio, handleDisconnect }: Props) => {
 
         setToken(data.token);
       } catch (error) {
-        toast.error("Could not join the call");
+        const errorMessage =
+          error instanceof Error ? error.message : "Unknown error occurred";
+        toast.error(`Could not join the call: ${errorMessage}`);
       }
     })();
   }, [conversationId, user?.fullName]);

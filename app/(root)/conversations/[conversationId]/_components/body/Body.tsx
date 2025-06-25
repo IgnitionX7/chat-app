@@ -20,7 +20,7 @@ type Props = {
   members: {
     lastSeenMessageId?: Id<"messages">;
     username?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   }[];
   callType: "audio" | "video" | null;
   setCallType: Dispatch<SetStateAction<"audio" | "video" | null>>;
