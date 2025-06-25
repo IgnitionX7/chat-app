@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
-const config = {
+import withPWA from "@ducanh2912/next-pwa";
+
+const config = withPWA({
+  dest: "public",
+  register: true,
+  workboxOptions: { skipWaiting: true, disableDevLogs: true },
+  disable: process.env.NODE_ENV === "development",
+})({
   typescript: {
     // ⚠️ Dangerously allow production builds to successfully complete even if
     // your project has type errors.
@@ -44,6 +51,6 @@ const config = {
       },
     ],
   },
-};
+});
 
 export default config;
