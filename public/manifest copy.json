@@ -2,14 +2,11 @@
   "name": "Chat App",
   "short_name": "Chat",
   "description": "Shan's chat app using nextjs",
-  "start_url": "/conversations",
-  "id": "/conversations",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#691cb5",
   "theme_color": "#6b39b1",
   "orientation": "portrait",
-  "scope": "/",
-  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icon192.png",
@@ -35,5 +32,6 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "scope": "/"
 }

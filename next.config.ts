@@ -4,7 +4,20 @@ import withPWA from "@ducanh2912/next-pwa";
 const config = withPWA({
   dest: "public",
   register: true,
-  workboxOptions: { skipWaiting: true, disableDevLogs: true },
+  workboxOptions: {
+    skipWaiting: true,
+    disableDevLogs: true,
+    runtimeCaching: [
+      {
+        urlPattern: /^https:\/\/.*\.clerk\.com\/.*/i,
+        handler: "NetworkFirst",
+        options: {
+          cacheName: "clerk-auth",
+          networkTimeoutSeconds: 10,
+        },
+      },
+    ],
+  },
   disable: process.env.NODE_ENV === "development",
 })({
   typescript: {
